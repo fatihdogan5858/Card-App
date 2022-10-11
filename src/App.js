@@ -1,4 +1,4 @@
-// import logo from './logo.svg'
+import { Grid, Stack, Container, Button, Input, Textarea } from '@mantine/core'
 import './App.css'
 import Card from './components/Card'
 import { useState } from 'react'
@@ -19,85 +19,63 @@ let arr = [
     title: 'Dağ 3',
     par: 'Açıklama 3',
   },
+  {
+    id: 4,
+    title: 'Dağ 4',
+    par: 'Açıklama 4',
+  },
 ]
-// function App() {
-//   return (
-//     <div>
-//       <h1>başlık</h1>
-//       <p>başlangıç</p>
-//       <div className="Cards">
-//         {arr.map(function ({ title, par }) {
-//           return <Card title={title} par={par} />
-//         })}
-//       </div>
-//     </div>
-//   )
-// }
-// const kare = (sayi) => sayi * sayi
 
 const App = () => {
-  const [lesson, setLesson] = useState(11)
+  const [title, setTitle] = useState('')
+  const [paragraf, setParagraph] = useState('')
+  const [list, setList] = useState(arr)
+  const [lesson, setLesson] = useState([])
+  const Click = () => {
+    console.log('butona tıklandı', title, paragraf)
+    setTitle('')
+    setParagraph('')
+    const copyList = [...list]
+    copyList.push({
+      id: 5,
+      title: title,
+      par: paragraf,
+    })
+    setList(copyList)
+  }
   return (
-    <div onResize={() => console.log('resize oldu')}>
-      <h1>başlık</h1>
-      <h2>Ders {lesson}</h2>
-      <button
-        onClick={() => {
-          setLesson(1)
-        }}
-      >
-        Ders 1
-      </button>
-      <button
-        onClick={() => {
-          setLesson(lesson + 1)
-        }}
-      >
-        Ders Arttır
-      </button>
-      <button
-        onClick={() => {
-          setLesson(lesson - 1)
-        }}
-      >
-        Ders Azalt
-      </button>
-
-      <button
-        onClick={() => {
-          setLesson(100)
-        }}
-      >
-        Ders 100
-      </button>
-
-      <p>başlangıç</p>
-      <div className="Cards">
-        {arr.map(({ title, par }, i) => (
-          <Card
-            key={`index ${i}`}
-            title={title}
-            par={par}
-            lesson={lesson}
-            index={i}
+    <Container>
+      <h1>Kart Oluşturma Programı</h1>
+      <Stack>
+        <Input.Wrapper label="Başlık">
+          <Input
+            placeholder="Başlık Yazınız"
+            width={400}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
+        </Input.Wrapper>
+        <Textarea
+          placeholder="Paragraf yazınız"
+          label="Paragraf"
+          value={paragraf}
+          onChange={(e) => setParagraph(e.target.value)}
+        />
+        <Button variant="outline" onClick={Click} color="blue">
+          Kart Oluştur
+        </Button>
+      </Stack>
+
+      <h2>Kartlar</h2>
+
+      <Grid>
+        {list.map(({ title, par }, i) => (
+          <Grid.Col span={4} key={`index ${i}`}>
+            <Card title={title} par={par} lesson={lesson} a={i} />
+          </Grid.Col>
         ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   )
 }
-// console.log('kare hesaplama', kare(5))
-
-// const App = () => (
-//   <div>
-//     <h1>başlık</h1>
-//     <p>başlangıç</p>
-//     <div className="Cards">
-//       {arr.map(({ title, par }) => (
-//         <Card title={title} par={par} />
-//       ))}
-//     </div>
-//   </div>
-// )
-
 export default App
