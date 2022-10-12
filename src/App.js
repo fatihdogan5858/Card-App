@@ -71,7 +71,7 @@ const App = () => {
       <Grid>
         {list.map(({ title, par }, i) => (
           <Grid.Col span={4} key={`index ${i}`}>
-            <Card title={title} par={par} lesson={lesson} a={i} />
+            <Card title={title} par={par} a={i} />
           </Grid.Col>
         ))}
       </Grid>
@@ -79,3 +79,5 @@ const App = () => {
   )
 }
 export default App
+
+// 13. video 30. dk kaldım
