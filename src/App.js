@@ -3,45 +3,37 @@ import './App.css'
 import Card from './components/Card'
 import { useState } from 'react'
 
-let arr = [
-  {
-    id: 1,
-    title: 'Dağ 1',
-    par: 'Açıklama 1',
-  },
-  {
-    id: 2,
-    title: 'Dağ 2',
-    par: 'Açıklama 2',
-  },
-  {
-    id: 3,
-    title: 'Dağ 3',
-    par: 'Açıklama 3',
-  },
-  {
-    id: 4,
-    title: 'Dağ 4',
-    par: 'Açıklama 4',
-  },
-]
-
 const App = () => {
   const [title, setTitle] = useState('')
   const [paragraf, setParagraph] = useState('')
-  const [list, setList] = useState(arr)
-  const [lesson, setLesson] = useState([])
+  const [list, setList] = useState([
+    {
+      id: 1,
+      title: 'Dağ 1',
+      par: 'Açıklama 1',
+    },
+    {
+      id: 2,
+      title: 'Dağ 2',
+      par: 'Açıklama 2',
+    },
+    {
+      id: 3,
+      title: 'Dağ 3',
+      par: 'Açıklama 3',
+    },
+  ])
   const Click = () => {
-    console.log('butona tıklandı', title, paragraf)
     setTitle('')
     setParagraph('')
-    const copyList = [...list]
-    copyList.push({
-      id: 5,
-      title: title,
-      par: paragraf,
-    })
-    setList(copyList)
+    setList([
+      ...list,
+      {
+        id: 5,
+        title,
+        par: paragraf,
+      },
+    ])
   }
   return (
     <Container>
@@ -66,12 +58,21 @@ const App = () => {
         </Button>
       </Stack>
 
-      <h2>Kartlar</h2>
+      <h2>Kartlar:</h2>
 
       <Grid>
-        {list.map(({ title, par }, i) => (
+        {list.map(({ par, title }, i) => (
           <Grid.Col span={4} key={`index ${i}`}>
-            <Card title={title} par={par} a={i} />
+            <Card
+              par={par}
+              title={title}
+              i={i}
+              click={() => {
+                let copyList = [...list]
+                copyList.splice(i, 1)
+                setList(copyList)
+              }}
+            />
           </Grid.Col>
         ))}
       </Grid>
